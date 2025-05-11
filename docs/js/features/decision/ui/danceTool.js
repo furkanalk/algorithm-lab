@@ -12,7 +12,7 @@ const COL_L_START  = 0;
 const COL_F_START  = 5;
 
 /* Sprite  */
-const spriteSrc = (type, style) => `docs/img/dancers/${type}_${style}.png`;
+const spriteSrc = (type, style) => `img/dancers/${type}_${style}.png`;
 
 /* utils */
 const rand = (m, M) => Math.floor(Math.random() * (M - m + 1)) + m;
