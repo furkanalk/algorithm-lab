@@ -74,7 +74,7 @@ export function initSortTool(containerId='sorting-tool') {
        <span class="flex items-center gap-1"><span style="background:#EF4444" class="w-6 h-3.5"></span>Compared</span>
      </div>
 
-     <div id="log" class="w-full max-w-2xl h-64 overflow-y-auto bg-gray-50 rounded p-3 text-sm font-mono shadow-inner"></div>
+     <div id="log" class="scroll-touch w-full max-w-2xl h-64 overflow-y-auto bg-gray-50 rounded p-3 text-sm font-mono shadow-inner"></div>
      <div id="current" class="w-full max-w-2xl bg-white rounded p-4 text-base font-semibold shadow"></div>
    </div>
   `;

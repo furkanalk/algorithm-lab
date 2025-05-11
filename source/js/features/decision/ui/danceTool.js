@@ -12,7 +12,7 @@ const COL_L_START  = 0;
 const COL_F_START  = 5;
 
 /* Sprite  */
-const spriteSrc = (type, style) => `img/dancers/${type}_${style}.png`;
+const spriteSrc = (type, style) => `/img/dancers/${type}_${style}.png`;
 
 /* utils */
 const rand = (m, M) => Math.floor(Math.random() * (M - m + 1)) + m;
@@ -317,7 +317,7 @@ export function initDanceGame(mountId = 'decision-tool') {
         </div>
       </div>
 
-      <div id="log" class="w-full max-w-3xl h-48 mx-auto justify-center overflow-y-auto bg-gray-50 dark:bg-slate-400/40 p-3 text-sm font-mono rounded shadow-inner"></div>
+      <div id="log" class="scroll-touch w-full max-w-3xl h-48 mx-auto justify-center overflow-y-auto bg-gray-50 dark:bg-slate-400/40 p-3 text-sm font-mono rounded shadow-inner"></div>
     </div>
   </div>`;
   }

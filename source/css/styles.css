@@ -139,3 +139,8 @@ html, body { height: 100%; }
 }
 
 @keyframes dance { to { background-position: -800% 0; } }
+
+.scroll-touch {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
