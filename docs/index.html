@@ -46,13 +46,380 @@
       </div>
     </section>
 
-    <!-- WIKI  -->
-    <section id="wikiSection" class="fade hidden centered-section">
-      <div class="section-inner">
-        <h2 class="text-3xl font-semibold mb-4 text-purple-600">Wiki</h2>
-        <p class="text-gray-600">Coming soon: learning resources and documentation.</p>
-      </div>
-    </section>
+   <!-- WIKI -->
+  <section id="wikiSection" class="container mx-auto p-8 flex flex-col md:flex-row gap-10">
+    <nav class="w-full md:w-64 bg-blue-900/90 rounded-2xl shadow-md p-6 sticky top-24">
+      <h2 class="text-xl font-bold border-b pb-3 mb-5 text-gray-800 dark:text-gray-100">Contents</h2>
+      <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+        <li><a href="#intro" class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Welcome</a></li>
+
+        <li class="mt-4 font-semibold text-yellow-600">Pathfinding</li>
+        <ul class="pl-5 space-y-2">
+          <li><a href="#bfs"       class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">BFS</a></li>
+          <li><a href="#dfs"       class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">DFS</a></li>
+          <li><a href="#dijkstra"  class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Dijkstra</a></li>
+          <li><a href="#astar"     class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">A*</a></li>
+        </ul>
+
+        <li class="mt-4 font-semibold text-emerald-600">Sorting</li>
+        <ul class="pl-5 space-y-2">
+          <li><a href="#bubble-sort"    class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Bubble Sort</a></li>
+          <li><a href="#selection-sort" class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Selection Sort</a></li>
+          <li><a href="#insertion-sort" class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Insertion Sort</a></li>
+          <li><a href="#merge-sort"     class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Merge Sort</a></li>
+          <li><a href="#quick-sort"     class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Quick Sort</a></li>
+        </ul>
+
+        <li class="mt-4 font-semibold text-fuchsia-600">Decision-Making</li>
+        <ul class="pl-5 space-y-2">
+          <li><a href="#greedy"              class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Greedy</a></li>
+          <li><a href="#monte-carlo"        class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Monte Carlo</a></li>
+          <li><a href="#simulated-annealing" class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Simulated Annealing</a></li>
+          <li><a href="#genetic"            class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Genetic Algorithm</a></li>
+          <li><a href="#tabu"               class="block px-3 py-2 rounded hover:bg-indigo-600/90 transition">Tabu Search</a></li>
+        </ul>
+      </ul>
+    </nav>
+
+    <div class="flex-1">
+      <article id="intro" class="bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h2 class="text-3xl font-bold text-indigo-600 mb-4">Welcome to the Algorithm Wiki</h2>
+        <p class="mb-3">
+          Explore foundational algorithms used in pathfinding, sorting, and decision-making.
+          Each section provides an overview, real-world applications, complexity analysis,
+          and clear pseudocode so you can implement or visualize them in your own projects.
+        </p>
+        <p>Choose any algorithm from the sidebar to dive deeper!</p>
+      </article>
+
+      <!-- BFS -->
+      <article id="bfs" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-indigo-500 mb-4">Breadth-First Search (BFS)</h3>
+        <p class="mb-3">BFS explores a graph layer by layer from the start node, guaranteeing the shortest path in
+          unweighted graphs. It employs a <em>queue</em> to track frontier nodes.</p>
+        <p class="mb-3">Typical uses include maze-solving, peer-to-peer broadcast, and determining the minimum moves in
+          puzzles such as the 15-tile game.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(V + E) &nbsp;|&nbsp; Space: O(V)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function BFS(start, goal):
+  queue ← new Queue()
+  queue.enqueue(start)
+  visited ← {start}
+  parent ← map()
+
+  while not queue.isEmpty():
+    node ← queue.dequeue()
+    if node == goal:
+      return reconstructPath(parent, start, goal)
+    for neighbor in node.neighbors():
+      if neighbor not in visited:
+        visited.add(neighbor)
+        parent[neighbor] ← node
+        queue.enqueue(neighbor)
+  return []</code></pre>
+      </article>
+
+      <!-- DFS -->
+      <article id="dfs" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-indigo-500 mb-4">Depth-First Search (DFS)</h3>
+        <p class="mb-3">DFS dives deep along branches before backtracking, using recursion or an explicit
+          <em>stack</em>. It excels at exploring tree-like structures and detecting cycles.</p>
+        <p class="mb-3">Applications: generating mazes, topological sorting, and identifying connected components
+          in images or graphs.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(V + E) &nbsp;|&nbsp; Space: O(V) (max recursion)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function DFS(start, goal):
+  stack ← new Stack()
+  stack.push(start)
+  visited ← {start}
+  parent ← map()
+
+  while not stack.isEmpty():
+    node ← stack.pop()
+    if node == goal:
+      return reconstructPath(parent, start, goal)
+    for neighbor in node.neighbors():
+      if neighbor not in visited:
+        visited.add(neighbor)
+        parent[neighbor] ← node
+        stack.push(neighbor)
+  return []</code></pre>
+      </article>
+
+      <!-- Dijkstra -->
+      <article id="dijkstra" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-indigo-500 mb-4">Dijkstra’s Algorithm</h3>
+        <p class="mb-3">Dijkstra computes shortest paths in graphs with non-negative edge weights by expanding the node
+          with the smallest tentative distance stored in a <em>min-heap</em>.</p>
+        <p class="mb-3">Used in GPS navigation and network routing (e.g., OSPF) where accurate distance metrics are
+          critical.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O((V + E) log V) &nbsp;|&nbsp; Space: O(V)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function Dijkstra(start, goal):
+  dist   ← map(default = ∞)
+  dist[start] ← 0
+  parent ← map()
+  pq     ← new MinHeap()
+  pq.insert((0, start))
+
+  while not pq.isEmpty():
+    (d, node) ← pq.extractMin()
+    if node == goal: break
+    for (neighbor, w) in node.neighbors():
+      alt ← d + w
+      if alt < dist[neighbor]:
+        dist[neighbor] ← alt
+        parent[neighbor] ← node
+        pq.insert((alt, neighbor))
+  return reconstructPath(parent, start, goal)</code></pre>
+      </article>
+
+      <!-- A* -->
+      <article id="astar" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-indigo-500 mb-4">A* Search Algorithm</h3>
+        <p class="mb-3">A* augments Dijkstra with a heuristic function <code>h(n)</code> estimating remaining cost to
+          the goal, dramatically reducing explored nodes while preserving optimality if the heuristic is
+          <em>admissible</em>.</p>
+        <p class="mb-3">Standard in game AI and robotics path planning; choose Manhattan or Euclidean heuristics for grid
+          worlds, or domain-specific estimates for complex maps.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: depends on heuristic (≤ Dijkstra) &nbsp;|&nbsp;
+          Space: O(V)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function A*(start, goal, h):
+  g ← map(default = ∞)
+  g[start] ← 0
+  f ← map(default = ∞)
+  f[start] ← h(start)
+
+  parent ← map()
+  open   ← new MinHeap()
+  open.insert((f[start], start))
+
+  while not open.isEmpty():
+    (fScore, node) ← open.extractMin()
+    if node == goal:
+      return reconstructPath(parent, start, goal)
+    for (neighbor, w) in node.neighbors():
+      tentative ← g[node] + w
+      if tentative < g[neighbor]:
+        g[neighbor] ← tentative
+        f[neighbor] ← tentative + h(neighbor)
+        parent[neighbor] ← node
+        open.insert((f[neighbor], neighbor))
+  return []</code></pre>
+      </article>
+
+      <!-- Bubble Sort -->
+      <article id="bubble-sort" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Bubble Sort</h3>
+        <p class="mb-3">Repeatedly swaps adjacent out-of-order elements, letting the largest “bubble” to the end each
+          pass. Simple but slow (quadratic time).</p>
+        <p class="mb-3">Good for teaching purposes or nearly-sorted lists where early-exit optimization makes it almost
+          linear.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(n²) &nbsp;|&nbsp; Space: O(1)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function bubbleSort(A):
+  n ← length(A)
+  for i in 0 to n-2:
+    swapped ← false
+    for j in 0 to n-2-i:
+      if A[j] > A[j+1]:
+        swap(A[j], A[j+1])
+        swapped ← true
+    if not swapped: break</code></pre>
+      </article>
+
+      <!-- Selection Sort -->
+      <article id="selection-sort" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Selection Sort</h3>
+        <p class="mb-3">Finds the smallest element in the unsorted region and swaps it to the front. Performs
+          <em>n</em> passes regardless of initial order.</p>
+        <p class="mb-3">Makes only O(n) swaps, so it can be preferable when write-operations are expensive (e.g., EEPROM
+          memory).</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(n²) &nbsp;|&nbsp; Space: O(1)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function selectionSort(A):
+  n ← length(A)
+  for i in 0 to n-2:
+    minIndex ← i
+    for j in i+1 to n-1:
+      if A[j] < A[minIndex]:
+        minIndex ← j
+    swap(A[i], A[minIndex])</code></pre>
+      </article>
+
+      <!-- Insertion Sort -->
+      <article id="insertion-sort" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Insertion Sort</h3>
+        <p class="mb-3">Builds the final sorted list one element at a time by inserting each new element into the correct
+          position among already-sorted elements.</p>
+        <p class="mb-3">Fast (O(n)) on nearly-sorted data; used inside hybrid sorts (e.g., TimSort) for small sub-arrays.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(n²) worst / O(n) best &nbsp;|&nbsp; Space: O(1)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function insertionSort(A):
+  for i in 1 to length(A)-1:
+    key ← A[i]
+    j   ← i-1
+    while j ≥ 0 and A[j] > key:
+      A[j+1] ← A[j]
+      j ← j-1
+    A[j+1] ← key</code></pre>
+      </article>
+
+      <!-- Merge Sort -->
+      <article id="merge-sort" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Merge Sort</h3>
+        <p class="mb-3">Divide-and-conquer: recursively splits the list, sorts each half, then merges sorted halves. It’s
+          stable and guarantees O(n log n).</p>
+        <p class="mb-3">Excellent for external sorting of huge files and is the backbone of language library
+          implementations (Java, Python’s TimSort variant).</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Time: O(n log n) &nbsp;|&nbsp; Space: O(n)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function mergeSort(A):
+  if length(A) ≤ 1: return A
+  mid   ← floor(length(A)/2)
+  left  ← mergeSort(A[0..mid-1])
+  right ← mergeSort(A[mid..])
+  return merge(left, right)
+
+function merge(L, R):
+  result ← []
+  while L and R not empty:
+    if L[0] ≤ R[0]:
+      result.append(L.popFront())
+    else:
+      result.append(R.popFront())
+  return result + L + R</code></pre>
+      </article>
+
+      <!-- Quick Sort -->
+      <article id="quick-sort" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Quick Sort</h3>
+        <p class="mb-3">Picks a pivot, partitions elements into &lt; pivot, = pivot, &gt; pivot, then recursively sorts
+          partitions. Average O(n log n) time and <em>in-place</em> (O(log n) extra space).</p>
+        <p class="mb-3">The most widely used general-purpose in-memory sort (e.g., C stdlib), but worst-case O(n²) if
+          pivots are chosen poorly.</p>
+        <p class="mb-2"><strong>Complexities&nbsp;—</strong> Avg Time: O(n log n) / Worst: O(n²) &nbsp;|&nbsp; Space: O(log n)</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function quickSort(A):
+  if length(A) ≤ 1: return A
+  pivot ← choosePivot(A)
+  L ← [x in A if x < pivot]
+  E ← [x in A if x == pivot]
+  G ← [x in A if x > pivot]
+  return quickSort(L) + E + quickSort(G)</code></pre>
+      </article>
+
+      <!-- Greedy -->
+      <article id="greedy" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-fuchsia-500 mb-4">Greedy Assignment</h3>
+        <p class="mb-3">Iteratively picks the locally best pair (highest score), removes them from the pool, and repeats
+          until empty. Fast (typically O(n²)) but may miss the global optimum.</p>
+        <p class="mb-2"><strong>Use cases</strong>: quick matching heuristics when speed is critical and optimality is
+          negotiable.</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function greedyMatch(leaders, followers):
+  matches ← []
+  while leaders and followers not empty:
+    (bestL, bestF, bestScore) ← argmaxScorePair(leaders, followers)
+    matches.append((bestL, bestF))
+    remove bestL from leaders
+    remove bestF from followers
+  return matches</code></pre>
+      </article>
+
+      <!-- Monte Carlo -->
+      <article id="monte-carlo" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-fuchsia-500 mb-4">Monte Carlo Search</h3>
+        <p class="mb-3">Generates many random assignments, scores each, and retains the best. Quality improves with more
+          iterations but runtime grows linearly.</p>
+        <p class="mb-2"><strong>Use cases</strong>: approximating solutions when evaluation is cheap but the search
+          space is enormous.</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function monteCarloMatch(leaders, followers, iterations):
+  best ← null
+  bestScore ← -∞
+  for i in 1..iterations:
+    perm ← randomShuffle(followers)
+    score ← evaluate(leaders, perm)
+    if score > bestScore:
+      bestScore ← score
+      best ← zip(leaders, perm)
+  return best</code></pre>
+      </article>
+
+      <!-- Simulated Annealing -->
+      <article id="simulated-annealing" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-fuchsia-500 mb-4">Simulated Annealing</h3>
+        <p class="mb-3">Starts with a random solution, applies random swaps, and occasionally accepts worse moves with
+          probability exp(-Δ/T). Temperature <em>T</em> gradually cools, reducing uphill moves over time.</p>
+        <p class="mb-2"><strong>Use cases</strong>: escaping local optima in complex search spaces (e.g., job-shop
+          scheduling).</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function simulatedAnnealingMatch(initial, T0, α, iterations):
+  current ← initial
+  best ← current
+  bestScore ← evaluate(current)
+  T ← T0
+  for i in 1..iterations:
+    next ← randomSwap(current)
+    Δ ← evaluate(next) - evaluate(current)
+    if Δ > 0 or random() < exp(-Δ / T):
+      current ← next
+    if evaluate(current) > bestScore:
+      best ← current
+      bestScore ← evaluate(current)
+    T ← T * α
+  return best</code></pre>
+      </article>
+
+      <!-- Genetic Algorithm -->
+      <article id="genetic" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-fuchsia-500 mb-4">Genetic Algorithm</h3>
+        <p class="mb-3">Maintains a population of candidate solutions, selects parents by fitness, produces offspring via
+          crossover and mutation, and iterates across generations.</p>
+        <p class="mb-2"><strong>Use cases</strong>: optimizing combinatorial problems (e.g., traveling salesman, feature
+          selection).</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function geneticMatch(leaders, followers, popSize, generations):
+  population ← initPopulation(leaders, followers, popSize)
+  for g in 1..generations:
+    fitness ← [evaluate(ind) for ind in population]
+    matingPool ← selection(population, fitness)
+    offspring ← crossoverAndMutate(matingPool)
+    population ← offspring
+  return argmax(population, evaluate)</code></pre>
+      </article>
+
+      <!-- Tabu Search -->
+      <article id="tabu" class="hidden bg-white border-2 border-indigo-600 rounded-2xl shadow-md p-8">
+        <h3 class="text-2xl font-bold text-fuchsia-500 mb-4">Tabu Search</h3>
+        <p class="mb-3">Explores the neighborhood of the current solution while maintaining a short-term memory
+          (<em>tabu list</em>) of recent moves to prevent cycling.</p>
+        <p class="mb-2"><strong>Use cases</strong>: vehicle routing, graph coloring, and other optimization problems
+          requiring strategic exploration.</p>
+        <h4 class="text-lg font-semibold mb-2">Pseudocode</h4>
+<pre class="bg-indigo-200 p-4 rounded text-sm"><code>function tabuMatch(initial, tabuLimit, iterations):
+  current ← initial
+  best ← current
+  tabu ← Queue()
+  for k in 1..iterations:
+    neighborhood ← generateNeighbors(current)
+    candidate ← argmax(neighborhood \\ tabu, evaluate)
+    move ← diff(current, candidate)
+    tabu.enqueue(move)
+    if tabu.size() > tabuLimit: tabu.dequeue()
+    current ← candidate
+    if evaluate(current) > evaluate(best):
+      best ← current
+  return best</code></pre>
+      </article>
+    </div>
+
+    <script>
+      
+    </script>
+  </section>
 
     <!-- TEST  -->
     <section id="testSection" class="fade hidden centered-section">

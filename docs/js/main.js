@@ -92,7 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('resetBtn').addEventListener('click', resetGrid);
   document.getElementById('clearBtn').addEventListener('click', clearPath);
+
+  const links    = document.querySelectorAll('#wikiSection nav a');
+  const articles = document.querySelectorAll('#wikiSection article');
+  const intro    = document.getElementById('intro');
+
+  function show(id) {
+          intro.classList.add('hidden');
+          articles.forEach(a => a.id === id
+            ? a.classList.remove('hidden')
+            : a.classList.add('hidden'));
+        }
+
+        links.forEach(link => link.addEventListener('click', e => {
+          e.preventDefault();
+          const id = link.getAttribute('href').slice(1);
+          show(id);
+          history.replaceState(null,'',`#${id}`);
+        }));
+
+        const hash = location.hash.slice(1);
+        if (hash) show(hash);
 });
+
 requestIdleCallback(() => {
   createGrid({ skipFade: false });
 });
