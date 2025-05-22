@@ -7,6 +7,9 @@ html, body { height: 100%; }
   --grid-gap : 0px;
 }
 
+#raceSection .bars-wrapper           { display:flex; gap:1px; align-items:flex-end; height:100%; }
+#raceSection .bars-wrapper > div     { flex:1 0 auto; background:#6366f1; transition:height .07s linear; }
+
 .fade   { transition: opacity .25s ease; }
 .hidden { opacity: 0; pointer-events: none; position: absolute; }
 .visible{ opacity: 1; position: static; }

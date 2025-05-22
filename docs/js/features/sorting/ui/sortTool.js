@@ -1,8 +1,7 @@
-/* UI */
-import * as ChartMod from 'https://cdn.jsdelivr.net/npm/chart.js@4.4.9/+esm';
+import { Chart } from '../lib/chart.js';
+
 import ChartDataLabels from 'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/+esm';
-const { Chart, registerables } = ChartMod;
-Chart.register(...registerables, ChartDataLabels);
+Chart.register(ChartDataLabels);
 
 import {
   bubbleSort,

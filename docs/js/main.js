@@ -1,10 +1,12 @@
+import { Chart } from './features/sorting/lib/chart.js';
+
 import {
   createGrid, toggleWallMode, clearPath, resetGrid, visualize,
   startNode, endNode,
   bfs, dfs, dijkstra, astar
 } from './features/pathfinding/index.js';
 
-import { initSortTool } from './features/sorting/index.js';
+import { initSortTool, initSortingRaceTool } from './features/sorting/index.js';
 import { initDanceGame } from './features/decision/index.js';
 
 const sections = {
@@ -14,11 +16,13 @@ const sections = {
   path : document.getElementById('pathSection'),
   sort : document.getElementById('sortSection'),
   decision : document.getElementById('decisionSection'),
+  race     : document.getElementById('raceSection'), 
 };
 
-/* Bubble Sort UI init once */
+/* UI init once */
 let sortInitDone = false;
 let decisionInitDone = false;
+let raceInitDone    = false;
 
 function showSection(name) {
   Object.entries(sections).forEach(([key, sec]) => {
@@ -43,6 +47,19 @@ function showSection(name) {
     requestIdleCallback(() => initDanceGame('decision-tool'));
     decisionInitDone = true;
   }
+
+  if (name === 'race' && !raceInitDone) {
+    requestIdleCallback(() => { 
+      initSortingRaceTool('race-tool');
+
+      setTimeout(() => {
+        const canvas = document.querySelector('#raceGraph');
+        const chart  = Chart.getChart(canvas);
+        if (chart) chart.resize();
+      }, 0);
+    });
+    raceInitDone = true;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,10 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('backTest');
   if (backBtn) backBtn.addEventListener('click',
     () => showSection('test'));
-
+  
+  const raceBtn = document.getElementById('openRace');
+  if (raceBtn) raceBtn.addEventListener('click', () => showSection('race'));
   showSection('home');
   
-  /* pathfinding */
   document.getElementById('wallBtn').addEventListener('click', () => {
     const mode = toggleWallMode();
     document.getElementById('wallBtn').textContent =

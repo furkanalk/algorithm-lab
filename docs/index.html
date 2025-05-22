@@ -30,9 +30,12 @@
     <!-- HOME -->
     <section id="homeSection" class="fade visible centered-section">
       <div class="section-inner">
-        <h2 class="text-3xl font-semibold mb-4 text-indigo-600">
+        <h2 class="text-3xl font-bold mb-4 text-indigo-600">
           Welcome to Algorithm Lab
         </h2>
+        <img src="./img/algorithm-lab.jpg"
+             alt="Algorithm Lab Logo"
+             class="h-48 w-auto mx-auto mb-6">
         <div class="flex justify-center space-x-4">
           <button id="homeTest"
                   class="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600">
@@ -426,31 +429,57 @@ function merge(L, R):
       <div class="section-inner">
         <h2 class="text-3xl font-semibold mb-6 text-indigo-600">Test</h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <div class="card p-6 bg-white rounded-lg shadow hover:shadow-lg">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="card flex flex-col p-6 bg-white rounded-lg shadow
+                      hover:shadow-lg transition h-full">
             <h3 class="text-xl font-bold mb-2 text-indigo-500">Pathfinding</h3>
-            <p class="text-gray-500 mb-4">Visualize path‑finding algorithms.</p>
+            <p class="text-gray-500 mb-4 flex-shrink-0">
+              Visualize path-finding algorithms.
+            </p>
             <button id="btnPath"
-                    class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                    class="mt-auto px-4 py-2 bg-indigo-500 text-white rounded
+                          hover:bg-indigo-600">
               Open
             </button>
           </div>
 
-          <div class="card p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
-            <h3 class="text-xl font-bold mb-2 text-indigo-500">Decision Making</h3>
-            <p class="text-gray-500 mb-4">Test your decision trees.</p>
+          <div class="card flex flex-col p-6 bg-white rounded-lg shadow
+                      hover:shadow-lg transition h-full">
+            <h3 class="text-xl font-bold mb-2 text-indigo-500">
+              Decision Making
+            </h3>
+            <p class="text-gray-500 mb-4 flex-shrink-0">
+              Test your decision algorithms.
+            </p>
             <button id="openDecision"
-                    class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                    class="mt-auto px-4 py-2 bg-indigo-500 text-white rounded
+                          hover:bg-indigo-600">
               Open
             </button>
           </div>
-  
-          <div class="card p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
+
+          <div class="card flex flex-col p-6 bg-white rounded-lg shadow
+                      hover:shadow-lg transition h-full">
             <h3 class="text-xl font-bold mb-2 text-indigo-500">Sorting</h3>
-            <p class="text-gray-500 mb-4">Practice sorting algorithms.</p>
+            <p class="text-gray-500 mb-4 flex-shrink-0">
+              Practice sorting algorithms.
+            </p>
             <button id="openSort"
-                    class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                    class="mt-auto px-4 py-2 bg-indigo-500 text-white rounded
+                          hover:bg-indigo-600">
+              Open
+            </button>
+          </div>
+
+          <div class="card flex flex-col p-6 bg-white rounded-lg shadow
+                      hover:shadow-lg transition h-full">
+            <h3 class="text-xl font-bold mb-2 text-indigo-500">Sorting Race</h3>
+            <p class="text-gray-500 mb-4 flex-shrink-0">
+              Compare sorting algorithms.
+            </p>
+            <button id="openRace"
+                    class="mt-auto px-4 py-2 bg-indigo-500 text-white rounded
+                          hover:bg-indigo-600">
               Open
             </button>
           </div>
@@ -490,6 +519,37 @@ function merge(L, R):
     <!-- SORTING -->
     <section id="sortSection" class="py-6">
       <div id="sorting-tool" class="sw-full max-w-lg mx-auto px-4">
+    </section>
+
+    <section id="raceSection" class="hidden fade">
+      <div id="race-tool" class="section-inner flex flex-col gap-6 w-full">
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <label>First&nbsp;Algorithm
+            <select id="algoLeft"  class="px-3 py-2 border rounded-lg"></select>
+          </label>
+
+          <label>Second&nbsp;Algorithm
+            <select id="algoRight" class="px-3 py-2 border rounded-lg"></select>
+          </label>
+
+          <button id="raceRandom" class="px-4 py-2 bg-emerald-700 rounded-lg text-sm text-white">
+            Randomize
+          </button>
+
+          <button id="raceRun" class="px-6 py-2 bg-indigo-600 rounded-lg text-white">
+            ▶️ Run Race
+          </button>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 h-80 lg:h-96">
+          <div id="leftBars"  class="bars-wrapper"></div>
+          <div id="rightBars" class="bars-wrapper"></div>
+        </div>
+
+        <!-- Graf -->
+        <canvas id="raceGraph" height="110"></canvas>
+      </div>
     </section>
 
     <!-- Decision‑making section -->
