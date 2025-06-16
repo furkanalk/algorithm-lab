@@ -1,5 +1,11 @@
 import { Chart } from '../lib/chart.js';
 
+// Tamamen animasyonları kapatıyoruz, böylece yükseklik sürekli
+// artmaz ve requestAnimationFrame döngüsü durur
+Chart.defaults.animation = false;
+
+const MOBILE_BREAK = 640;    // px; mobil limit
+
 const shuffle = a => {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -13,7 +19,10 @@ const COLOR_RIGHT = '#ec4899';
 
 export function initSortingRaceTool(sectionId = 'race-tool') {
   const section   = document.getElementById(sectionId);
-  if (!section) { console.warn('SortingRace: section not found'); return; }
+  if (!section) {
+    console.warn('SortingRace: section not found');
+    return;
+  }
 
   const leftSel   = section.querySelector('#algoLeft');
   const rightSel  = section.querySelector('#algoRight');
@@ -39,8 +48,8 @@ export function initSortingRaceTool(sectionId = 'race-tool') {
 
   let currentInit = [...Array(60).keys()].map(i => 60 - i);
 
-	drawBars(leftArea,  currentInit, COLOR_LEFT);
-	drawBars(rightArea, currentInit, COLOR_RIGHT);
+  drawBars(leftArea,  currentInit, COLOR_LEFT);
+  drawBars(rightArea, currentInit, COLOR_RIGHT);
 
   let raceChart = null;
   raceChart = makeChart(
@@ -51,7 +60,7 @@ export function initSortingRaceTool(sectionId = 'race-tool') {
   randomBtn.addEventListener('click', () => {
     currentInit = shuffle([...Array(60).keys()].map(i => i + 1));
     drawBars(leftArea,  currentInit, COLOR_LEFT);
-		drawBars(rightArea, currentInit, COLOR_RIGHT);
+    drawBars(rightArea, currentInit, COLOR_RIGHT);
     resetChart();
   });
 
@@ -62,18 +71,19 @@ export function initSortingRaceTool(sectionId = 'race-tool') {
     const rightArr = [...currentInit];
 
     drawBars(leftArea,  currentInit, COLOR_LEFT);
-		drawBars(rightArea, currentInit, COLOR_RIGHT);
+    drawBars(rightArea, currentInit, COLOR_RIGHT);
 
     const results = { l: null, r: null };
 
-    animate(leftArea,  leftArr,  algos[leftSel.value],  r => { results.l = { name:leftSel.value,  ...r }; maybe(); });
-    animate(rightArea, rightArr, algos[rightSel.value], r => { results.r = { name:rightSel.value, ...r }; maybe(); });
+    animate(leftArea,  leftArr,  algos[leftSel.value],  r => { results.l = { name:leftSel.value,  ...r }; maybeUpdate(); });
+    animate(rightArea, rightArr, algos[rightSel.value], r => { results.r = { name:rightSel.value, ...r }; maybeUpdate(); });
 
-    function maybe() {
-      if (results.l && results.r) raceChart = makeChart(results.l, results.r);
+    function maybeUpdate() {
+      if (results.l && results.r) {
+        raceChart = makeChart(results.l, results.r);
+      }
     }
   });
-
 
   function drawBars(area, arr, color) {
     area.innerHTML         = '';
@@ -107,25 +117,43 @@ export function initSortingRaceTool(sectionId = 'race-tool') {
       steps[i++].forEach((v, k) => {
         bars[k].style.height = `${(v / arr.length) * 100}%`;
       });
-    }, 12);                                       // ≈60 fps
+    }, 12); // ≈60 fps
   }
 
   function makeChart(a, b) {
     const old = Chart.getChart(graph);
     if (old) old.destroy();
 
+    graph.style.display = 'block';
+
     return new Chart(graph, {
       type: 'bar',
       data: {
         labels: ['Time (ms)', 'Comparisons'],
         datasets: [
-          { label: a.name, data: [a.duration, a.comparisons], backgroundColor: 'rgba(99,102,241,.7)' },
-          { label: b.name, data: [b.duration, b.comparisons], backgroundColor: 'rgba(236,72,153,.7)' },
+          {
+            label: a.name,
+            data: [a.duration, a.comparisons],
+            backgroundColor: 'rgba(99,102,241,0.7)'
+          },
+          {
+            label: b.name,
+            data: [b.duration, b.comparisons],
+            backgroundColor: 'rgba(236,72,153,0.7)'
+          }
         ]
       },
       options: {
         responsive: true,
-        plugins: { title: { display: true, text: 'Performance Analysis' } }
+        maintainAspectRatio: true,
+        aspectRatio: window.innerWidth <= MOBILE_BREAK ? 1.2 : 2,
+        animation: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Performance Analysis'
+          }
+        }
       }
     });
   }

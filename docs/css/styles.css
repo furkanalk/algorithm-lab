@@ -147,3 +147,16 @@ html, body { height: 100%; }
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+@media (max-width: 640px) {
+  #raceGraph {
+    height: 250px !important;
+  }
+}
+
+/* orta ve üstü ekranlarda Chart.js’in kendi responsive ölçülerini kullansın */
+@media (min-width: 641px) {
+  #raceGraph {
+    height: auto !important;
+  }
+}
